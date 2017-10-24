@@ -3,6 +3,11 @@
 BACKUP_DIR=/backups
 BACKUP_DATE=$(date +%Y-%m-%d_%H-%M-%S)
 
+# Set default postgres port
+if [ -z "$POSTGRES_PORT" ]; then
+  export POSTGRES_PORT=5432
+fi
+
 # Exit if missing any required env variables
 if [ -z "$AWS_ACCESS_KEY" ]; then
   echo 'Missing Environment Variable: AWS_ACCESS_KEY'
