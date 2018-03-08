@@ -66,6 +66,7 @@ backup_postgres() {
 
   # echo $COMPRESSED_BACKUP_COMMAND
   eval $COMPRESSED_BACKUP_COMMAND
+  sed -i 's/OWNER = avvopg//' $BACKUP_FILE_NOOWNER
   eval $COMPRESSED_BACKUP_COMMAND_NOOWNER
 }
 
