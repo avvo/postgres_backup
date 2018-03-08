@@ -51,11 +51,11 @@ backup_postgres() {
 
   if [ -z "$DB_NAME" ]; then
     BACKUP_FILE="$BACKUP_DIR/$BACKUP_DATE.sql"
-    BACKUP_FILE_NOOWNER="$BACKUP_DIR/$BACKUP_DATE-noowner.sql"
+    BACKUP_FILE_NOOWNER="$BACKUP_DIR/`date -d "+ 1 second" "+%Y-%m-%d_%H-%M-%S"`-noowner.sql"
     BACKUP_COMMAND="$PG_BACKUP $PG_PARAMS"
   else
     BACKUP_FILE="$BACKUP_DIR/$BACKUP_DATE-$DB_NAME.sql"
-    BACKUP_FILE_NOOWNER="$BACKUP_DIR/$BACKUP_DATE-noowner.sql"
+    BACKUP_FILE_NOOWNER="$BACKUP_DIR/`date -d "+ 1 second" "+%Y-%m-%d_%H-%M-%S"`-noowner.sql"
     BACKUP_COMMAND="$PG_BACKUP $PG_PARAMS $DB_NAME"
   fi
 
@@ -68,7 +68,6 @@ backup_postgres() {
 
   # echo $COMPRESSED_BACKUP_COMMAND
   eval $COMPRESSED_BACKUP_COMMAND
-  sleep 5
   eval $BACKUP_COMMAND_NOOWNER && eval $SED_NOOWNER && eval $GZIP_NOOWNER
 }
 
